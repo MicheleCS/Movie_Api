@@ -15,8 +15,5 @@ export class CreateUserRequestDTO {
     cpf: string;
 
     @ApiProperty()
-    acctive: boolean;
-
-    @ApiProperty()
-    role_id: string;
+    acctive: string;
 }

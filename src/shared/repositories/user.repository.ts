@@ -14,7 +14,7 @@ export class UserRepository extends Repository<User> {
 
   async createUser(dto: CreateUserDTO): Promise <User>{
     const user = this.create(dto);
-    return await this.save(user);    
+    return await this.save(user) 
   }
 
   async findOneUser(id: string): Promise<User | undefined> {
@@ -31,4 +31,3 @@ export class UserRepository extends Repository<User> {
     this.delete(id);
   }
 }
-

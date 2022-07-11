@@ -18,8 +18,5 @@ export class User {
   cpf: string;
 
   @Column()
-  acctive: boolean;
-
-  @Column('uuid')
-  role_id: string;
+  acctive: string;
 }
