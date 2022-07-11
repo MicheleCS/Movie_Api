@@ -12,5 +12,4 @@ export class DeleteUserService {
     async remove(id: string) {
         await this.repository.deleteUser(id);
     }
-
 }
