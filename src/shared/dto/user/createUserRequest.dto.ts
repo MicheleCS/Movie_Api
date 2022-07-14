@@ -15,5 +15,5 @@ export class CreateUserRequestDTO {
     cpf: string;
 
     @ApiProperty()
-    acctive: string;
+    acctive: boolean;
 }

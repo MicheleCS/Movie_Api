@@ -18,7 +18,7 @@ export class User {
   cpf: string;
 
   @Column()
-  acctive: string;
+  acctive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt: Date;

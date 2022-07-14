@@ -3,5 +3,5 @@ export class CreateUserDTO {
   email: string;
   password: string;
   cpf: string;
-  acctive: string;
+  acctive: boolean;
 }

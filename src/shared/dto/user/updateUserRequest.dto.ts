@@ -18,5 +18,5 @@ export class UpdateUserRequestDTO {
     cpf?: string;
 
     @ApiProperty()
-    acctive?:string;
+    acctive?: boolean;
 }
