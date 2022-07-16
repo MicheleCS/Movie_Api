@@ -17,8 +17,8 @@ export class UserRepository extends Repository<User> {
     return await this.save(user) 
   }
 
-  async findAllUser(): Promise <User | undefined>{
-    return await this.findAllUser()
+  async findAllUser(): Promise <User[] | undefined>{
+    return await this.find()
   }
 
 
