@@ -1,19 +1,23 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserRequestDTO {
-    
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    email: string;
+  @ApiProperty()
+  email: string;
 
-    @ApiProperty()
-    password: string;
+  @ApiProperty()
+  password: string;
 
-    @ApiProperty()
-    cpf: string;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  cpf: string;
 
-    @ApiProperty()
-    acctive: boolean;
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  acctive: boolean;
 }
