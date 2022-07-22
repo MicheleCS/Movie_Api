@@ -22,11 +22,11 @@ export const config2: TypeOrmModuleOptions = {
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
   autoLoadEntities: true,
-}
+};
 
 export function getDatabaseConfigConnection(): TypeOrmModuleOptions {
   return {
-    ...config2,
+    ...config,
     entities: ['dist/shared/database/entities/*.entity.js'],
   };
 }
