@@ -1,15 +1,15 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UserRepository } from "shared/repositories/user.repository";
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserRepository } from 'shared/repositories/user.repository';
 
 @Injectable()
-export class GetAllService{
-    constructor(
-        @InjectRepository(UserRepository)
-        private repository: UserRepository,
-    ) {}
+export class GetAllUserService {
+  constructor(
+    @InjectRepository(UserRepository)
+    private repository: UserRepository,
+  ) {}
 
-    async findAll() {
-        return this.repository.findAllUser();
-    }
+  async findAll() {
+    return this.repository.findAllUser();
+  }
 }
