@@ -11,7 +11,6 @@ export class CreateUserController {
 
   @Post()
   @HttpCode(201)
-  @HttpCode(201)
   @UsePipes(
       new ValidationPipe({
         transform: true,

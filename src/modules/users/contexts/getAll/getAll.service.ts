@@ -10,6 +10,6 @@ export class GetAllUserService {
   ) {}
 
   async findAll() {
-    return await this.repository.findAllUser();
+    return this.repository.findAllUser();
   }
 }

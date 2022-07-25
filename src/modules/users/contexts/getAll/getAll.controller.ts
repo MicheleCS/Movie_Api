@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { GetAllUserService } from './getAll.service';
+import { Controller, Get, HttpCode, UsePipes, ValidationPipe } from "@nestjs/common";
+import { GetAllUserService } from "./getAll.service";
 
 @Controller('users')
-export class GetAllUserController {
-  constructor(private readonly getAllUserService: GetAllUserService) {}
+export class GetAllController {
+    constructor(private readonly getAllService: GetAllUserService) {}
 
-  @Get()
-  findAll() {
-    return this.getAllUserService.findAll();
-  }
+    @Get()
+    @HttpCode(200)
+    @UsePipes(
+      new ValidationPipe({
+        transform: true,
+      }),
+    )
+    findAll(){
+        return this.getAllService.findAll();
+    }
 }

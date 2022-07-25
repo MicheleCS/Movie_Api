@@ -2,7 +2,10 @@ import { Controller, Delete, HttpCode, Param, UseGuards, UsePipes, ValidationPip
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { DeleteUserService } from './delete.service';
+import { ApiTags } from "@nestjs/swagger";
 
+
+@ApiTags('users')
 @Controller('users')
 export class DeleteUserController {
   constructor(private readonly deleteUserService: DeleteUserService) {}

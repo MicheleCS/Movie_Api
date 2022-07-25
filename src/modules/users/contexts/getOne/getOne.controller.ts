@@ -17,6 +17,6 @@ export class GetOneUserController {
       }),
     )
   async findOne(@Param('id') id: string) {
-    return await this.getOneUserService.findOne(id);
+    return this.getOneUserService.findOne(id);
   }
 }
