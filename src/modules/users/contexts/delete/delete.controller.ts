@@ -1,4 +1,4 @@
-import { Controller, Delete, HttpCode, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { DeleteUserService } from './delete.service';
@@ -13,7 +13,7 @@ export class DeleteUserController {
   @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    @HttpCode(204)
+    @HttpCode(HttpStatus.NO_CONTENT)
     @UsePipes(
       new ValidationPipe({
         transform: true,

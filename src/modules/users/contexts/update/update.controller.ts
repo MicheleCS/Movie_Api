@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Patch, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Patch, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { UpdateUserRequestDTO } from 'shared/dto/user/updateUserRequest.dto';
@@ -11,7 +11,7 @@ export class UpdateUserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch()
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
     new ValidationPipe({
       transform: true,

@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { GetOneUserService } from './getOne.service';
@@ -10,7 +10,7 @@ export class GetOneUserController {
   @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Get(':id')
-    @HttpCode(200)
+    @HttpCode(HttpStatus.OK)
     @UsePipes(
       new ValidationPipe({
         transform: true,
