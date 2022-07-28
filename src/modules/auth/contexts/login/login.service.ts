@@ -18,12 +18,15 @@ export class LoginService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userRepository.findByEmail(username);
-    if (!user) return false
-    const passwordMatched = this.encryption.compareHash(password, user.password)
-    if (!passwordMatched) return false
+    if (!user) return false;
+    const passwordMatched = this.encryption.compareHash(
+      password,
+      user.password,
+    );
+    if (!passwordMatched) return false;
 
-    return true
-  } 
+    return true;
+  }
 
   async login(user: LoginDTO) {
     const userFinded = await this.userRepository.findByEmail(user.email);

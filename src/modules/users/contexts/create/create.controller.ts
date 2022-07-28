@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { instanceToInstance } from 'class-transformer';
 import { CreateUserRequestDTO } from 'shared/dto/user/createUserRequest.dto';
@@ -12,9 +20,9 @@ export class CreateUserController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(
-      new ValidationPipe({
-        transform: true,
-      }),
+    new ValidationPipe({
+      transform: true,
+    }),
   )
   async create(@Body() dto: CreateUserRequestDTO) {
     const user = await this.createUserService.create(dto);

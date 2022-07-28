@@ -17,8 +17,8 @@ export class CreateUserService {
     const hashed = this.encryption.createHash(dto.password);
 
     return await this.repository.createUser({
-      ...dto, 
-      password: hashed
+      ...dto,
+      password: hashed,
     });
   }
 }

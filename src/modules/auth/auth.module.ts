@@ -8,18 +8,28 @@ import { UserRepository } from 'shared/repositories/user.repository';
 import { jwtConstants } from './constants';
 import { LoginController } from './contexts/login/login.controller';
 import { LoginService } from './contexts/login/login.service';
+import { JwtAuthGuard } from './guards/jwt-auth.guards';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-  imports: [UserModule, PassportModule, 
+  imports: [
+    UserModule,
+    PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '5d' },
-    }),TypeOrmModule.forFeature([UserRepository])],
-  controllers:[LoginController],
-  providers: [LoginService, LocalStrategy, JwtStrategy, { provide: 'ENCRYPT_PROVIDER', useClass: BcryptProvider }],
+    }),
+    TypeOrmModule.forFeature([UserRepository]),
+  ],
+  controllers: [LoginController],
+  providers: [
+    JwtAuthGuard,
+    LoginService,
+    LocalStrategy,
+    JwtStrategy,
+    { provide: 'ENCRYPT_PROVIDER', useClass: BcryptProvider },
+  ],
   exports: [LoginService],
-  
 })
 export class AuthModule {}

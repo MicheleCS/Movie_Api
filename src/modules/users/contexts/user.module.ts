@@ -29,6 +29,6 @@ import { UpdateUserService } from './update/update.service';
     GetAllUserService,
     GetOneUserService,
     UpdateUserService,
-  ]
+  ],
 })
 export class UserModule {}

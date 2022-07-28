@@ -10,9 +10,9 @@ const databaseOptions = {
 };
 @Module({
   imports: [
-    HealthModule, 
-    TypeOrmModule.forRoot(databaseOptions), 
-    UserModule, 
+    HealthModule,
+    TypeOrmModule.forRoot(databaseOptions),
+    UserModule,
     AuthModule,
   ],
 })
