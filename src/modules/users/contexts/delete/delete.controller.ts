@@ -1,9 +1,17 @@
-import { Controller, Delete, HttpCode, HttpStatus, Param, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Param,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { DeleteUserService } from './delete.service';
-import { ApiTags } from "@nestjs/swagger";
-
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
@@ -11,14 +19,14 @@ export class DeleteUserController {
   constructor(private readonly deleteUserService: DeleteUserService) {}
 
   @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
-    @Delete(':id')
-    @HttpCode(HttpStatus.NO_CONTENT)
-    @UsePipes(
-      new ValidationPipe({
-        transform: true,
-      }),
-    )
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  )
   async remove(@Param('id') id: string) {
     return await this.deleteUserService.remove(id);
   }

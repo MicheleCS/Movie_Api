@@ -10,8 +10,8 @@ export class UserRepository extends Repository<User> {
     return this.save(user);
   }
 
-  async findAllUser(): Promise <User[] | undefined>{
-    return this.find()
+  async findAllUser(): Promise<User[] | undefined> {
+    return this.find();
   }
 
   async findOneUser(id: string): Promise<User | undefined> {
@@ -19,7 +19,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async updateUser(dto: UpdateUserRequestDTO): Promise<void> {
-   await this.update(dto.id, dto);
+    await this.update(dto.id, dto);
   }
 
   async deleteUser(id: string): Promise<void> {
