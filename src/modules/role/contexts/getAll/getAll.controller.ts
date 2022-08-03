@@ -6,11 +6,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { GetAllUserService } from './getAll.service';
+import { GetAllRoleService } from './getAll.service';
 
-@Controller('users')
-export class GetAllUserController {
-  constructor(private readonly getAllUserService: GetAllUserService) {}
+@Controller('roles')
+export class GetAllRoleController {
+  constructor(private readonly getAllRoleService: GetAllRoleService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -20,6 +20,6 @@ export class GetAllUserController {
     }),
   )
   findAll() {
-    return this.getAllUserService.findAll();
+    return this.getAllRoleService.findAll();
   }
 }
