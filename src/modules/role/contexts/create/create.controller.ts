@@ -4,11 +4,13 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { instanceToInstance } from 'class-transformer';
+import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { CreateRoleRequestDTO } from 'shared/dto/role/createRoleRequest.dto';
 import { CreateRoleService } from './create.service';
 
@@ -17,6 +19,8 @@ import { CreateRoleService } from './create.service';
 export class CreateRoleController {
   constructor(private readonly createRoleService: CreateRoleService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(
