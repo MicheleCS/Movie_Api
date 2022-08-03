@@ -10,7 +10,7 @@ import { GetAllUserService } from './getAll.service';
 
 @Controller('users')
 export class GetAllUserController {
-  constructor(private readonly getAllService: GetAllUserService) {}
+  constructor(private readonly getAllUserService: GetAllUserService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -20,6 +20,6 @@ export class GetAllUserController {
     }),
   )
   findAll() {
-    return this.getAllService.findAll();
+    return this.getAllUserService.findAll();
   }
 }
