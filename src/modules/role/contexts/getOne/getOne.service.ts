@@ -10,6 +10,6 @@ export class GetOneRoleService {
   ) {}
 
   async findOne(id: string) {
-    return await this.repository.findOneRole(id);
+    return this.repository.findOneRole(id);
   }
 }

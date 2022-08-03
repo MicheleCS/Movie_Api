@@ -11,6 +11,6 @@ export class CreateRoleService {
   ) {}
 
   async create(dto: CreateRoleRequestDTO) {
-    return await this.repository.createRole(dto);
+    return this.repository.createRole(dto);
   }
 }
