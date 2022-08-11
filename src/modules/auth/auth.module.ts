@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from 'modules/users/contexts/user.module';
+import { UserModule } from 'modules/users/user.module';
 import { BcryptProvider } from 'shared/providers/encrypt/bcrypt.provider';
 import { UserRepository } from 'shared/repositories/user.repository';
 import { jwtConstants } from './constants';

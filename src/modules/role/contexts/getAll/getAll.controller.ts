@@ -19,7 +19,7 @@ export class GetAllRoleController {
       transform: true,
     }),
   )
-  findAll() {
+  async findAll() {
     return this.getAllRoleService.findAll();
   }
 }
