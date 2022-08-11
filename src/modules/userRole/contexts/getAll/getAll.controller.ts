@@ -21,7 +21,7 @@ export class GetAllUserRoleController {
       transform: true,
     }),
   )
-  findAll() {
+  async findAll() {
     return this.getAllUserRoleService.findAll();
   }
 }

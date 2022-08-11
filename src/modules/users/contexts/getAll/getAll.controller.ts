@@ -19,7 +19,7 @@ export class GetAllUserController {
       transform: true,
     }),
   )
-  findAll() {
+  async findAll() {
     return this.getAllUserService.findAll();
   }
 }
