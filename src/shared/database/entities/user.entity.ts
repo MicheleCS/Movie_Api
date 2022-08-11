@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserRole } from './userRole.entity';
 
 @Entity('users')
 export class User {
@@ -47,4 +49,7 @@ export class User {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   public deletedAt: Date;
+
+  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  public userRoles?: UserRole[];
 }
