@@ -9,9 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
-import { RolesGuard } from 'modules/auth/guards/role.guards';
-import { Roles } from 'modules/auth/guards/roles.decorator';
-import { roles } from 'shared/constants/roles';
 import { GetAllUserRoleService } from './getAll.service';
 
 @ApiTags('user-roles')
