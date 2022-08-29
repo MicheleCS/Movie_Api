@@ -1,36 +1,39 @@
 import {
+  Body,
   Controller,
-  Delete,
   HttpCode,
   HttpStatus,
-  Param,
+  Post,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { instanceToInstance } from 'class-transformer';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { DeleteRoleService } from './delete.service';
+import { CreateMovieRequestDTO } from 'shared/dto/movie/createMovieRequest.dto';
+import { CreateMovieService } from './create.service';
 
-@ApiTags('roles')
-@Controller('roles')
-export class DeleteRoleController {
-  constructor(private readonly deleteRoleService: DeleteRoleService) {}
+@ApiTags('movies')
+@Controller('movies')
+export class CreateMovieController {
+  constructor(private readonly createMovieService: CreateMovieService) {}
 
   @ApiBearerAuth()
-  @Delete(':id')
+  @Post()
   @Roles(roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.CREATED)
   @UsePipes(
     new ValidationPipe({
       transform: true,
     }),
   )
-  async remove(@Param('id') id: string) {
-    return this.deleteRoleService.remove(id);
+  async create(@Body() dto: CreateMovieRequestDTO) {
+    const movie = await this.createMovieService.create(dto);
+    return instanceToInstance(movie);
   }
 }

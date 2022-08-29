@@ -3,9 +3,14 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
+import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
 import { GetAllRoleService } from './getAll.service';
 
 @Controller('roles')
@@ -13,6 +18,8 @@ export class GetAllRoleController {
   constructor(private readonly getAllRoleService: GetAllRoleService) {}
 
   @Get()
+  @Roles(roles.BASIC)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(
     new ValidationPipe({

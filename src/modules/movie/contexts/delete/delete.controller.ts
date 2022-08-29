@@ -10,20 +10,18 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
-import { DeleteUserService } from './delete.service';
-import { ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { RolesGuard } from 'modules/auth/guards/role.guards';
+import { DeleteMovieService } from './delete.service';
 
-@ApiTags('users')
-@Controller('users')
-export class DeleteUserController {
-  constructor(private readonly deleteUserService: DeleteUserService) {}
+@Controller('movies')
+export class DeleteMovieController {
+  constructor(private readonly deleteMovieService: DeleteMovieService) {}
 
   @ApiBearerAuth()
   @Delete(':id')
-  @Roles(roles.BASIC)
+  @Roles(roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
@@ -32,6 +30,6 @@ export class DeleteUserController {
     }),
   )
   async remove(@Param('id') id: string) {
-    return await this.deleteUserService.remove(id);
+    return this.deleteMovieService.remove(id);
   }
 }

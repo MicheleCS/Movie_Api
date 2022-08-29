@@ -1,29 +1,28 @@
 import {
+  Body,
   Controller,
-  Delete,
   HttpCode,
   HttpStatus,
-  Param,
+  Patch,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
-import { DeleteUserService } from './delete.service';
-import { ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { RolesGuard } from 'modules/auth/guards/role.guards';
+import { UpdateMovieRequestDTO } from 'shared/dto/movie/updateMovieRequest.dto';
+import { UpdateMovieService } from './update.service';
 
-@ApiTags('users')
-@Controller('users')
-export class DeleteUserController {
-  constructor(private readonly deleteUserService: DeleteUserService) {}
+@Controller('movies')
+export class UpdateMovieController {
+  constructor(private readonly updateMovieService: UpdateMovieService) {}
 
   @ApiBearerAuth()
-  @Delete(':id')
-  @Roles(roles.BASIC)
+  @Patch()
+  @Roles(roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
@@ -31,7 +30,7 @@ export class DeleteUserController {
       transform: true,
     }),
   )
-  async remove(@Param('id') id: string) {
-    return await this.deleteUserService.remove(id);
+  async update(@Body() updateMovieRequestDTO: UpdateMovieRequestDTO) {
+    await this.updateMovieService.update(updateMovieRequestDTO);
   }
 }

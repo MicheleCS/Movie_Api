@@ -37,7 +37,11 @@ export class LoginService {
     if (!hashed) {
       throw new UnauthorizedException(usernameOrPasswordInvalid);
     }
-    const payload = { email: user.email, sub: userFinded.id };
+    const payload = {
+      email: user.email,
+      sub: userFinded.id,
+    };
+
     const token = await this.jwtService.sign(payload);
     return {
       accessToken: token,

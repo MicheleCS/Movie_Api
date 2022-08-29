@@ -9,6 +9,7 @@ import { jwtConstants } from './constants';
 import { LoginController } from './contexts/login/login.controller';
 import { LoginService } from './contexts/login/login.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guards';
+import { RolesGuard } from './guards/role.guards';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
@@ -29,6 +30,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     LocalStrategy,
     JwtStrategy,
     { provide: 'ENCRYPT_PROVIDER', useClass: BcryptProvider },
+    RolesGuard,
   ],
   exports: [LoginService],
 })
