@@ -11,6 +11,9 @@ import {
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { instanceToInstance } from 'class-transformer';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
+import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
 import { GetAllMovieRequestDTO } from 'shared/dto/movie/getAllUserRequest.dto';
 import { GettAllMovieService } from './getAll.service';
 
@@ -19,8 +22,9 @@ export class GetAllMovieController {
   constructor(private readonly getAllMovieService: GettAllMovieService) {}
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get()
+  @Roles(roles.BASIC)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(
     new ValidationPipe({

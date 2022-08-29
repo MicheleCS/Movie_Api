@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
 import { UpdateMovieRequestDTO } from 'shared/dto/movie/updateMovieRequest.dto';
 import { UpdateMovieService } from './update.service';
 
@@ -19,9 +21,9 @@ export class UpdateMovieController {
   constructor(private readonly updateMovieService: UpdateMovieService) {}
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Patch()
-  //@Roles('admin')
+  @Roles(roles.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
     new ValidationPipe({

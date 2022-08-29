@@ -10,6 +10,9 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
+import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
 import { GetOneMovieService } from './getOne.service';
 
 @Controller('movies')
@@ -17,8 +20,9 @@ export class GetOneMovieController {
   constructor(private readonly GetOneMovieService: GetOneMovieService) {}
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
+  @Roles(roles.BASIC)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(
     new ValidationPipe({

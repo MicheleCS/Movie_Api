@@ -1,6 +1,5 @@
 import { Movie } from 'shared/database/entities/movie.entity';
 import { CreateMovieDTO } from 'shared/dto/movie/createMovie.dto';
-import { CreateMovieRequestDTO } from 'shared/dto/movie/createMovieRequest.dto';
 import { GetAllMovieRequestDTO } from 'shared/dto/movie/getAllUserRequest.dto';
 import { UpdateMovieRequestDTO } from 'shared/dto/movie/updateMovieRequest.dto';
 import { EntityRepository, getRepository, Repository } from 'typeorm';
@@ -14,22 +13,22 @@ export class MovieRepository extends Repository<Movie> {
     this.ormRepository = getRepository(Movie);
   }
   private buildFilter(params: GetAllMovieRequestDTO) {
-    const movie = params?.movie;
-    const actor = params?.actor;
-    const director = params?.director;
-    const gender = params?.gender;
-    const query = this.ormRepository.createQueryBuilder('users');
+    const movie = params.movie;
+    const actor = params.actor;
+    const director = params.director;
+    const gender = params.gender;
+    const query = this.ormRepository.createQueryBuilder('movies');
     if (movie) {
       query.andWhere('movies.movie = :movie', { movie });
     }
     if (actor) {
-      query.andWhere('movie.actor = :actor', { actor });
+      query.andWhere('movies.actor = :actor', { actor });
     }
     if (director) {
-      query.andWhere('movie.director = :director', { director });
+      query.andWhere('movies.director = :director', { director });
     }
     if (gender) {
-      query.andWhere('movie.gender = :gender', { gender });
+      query.andWhere('movies.gender = :gender', { gender });
     }
     return query;
   }
@@ -40,7 +39,7 @@ export class MovieRepository extends Repository<Movie> {
   }
 
   async findAllMovie(dto: GetAllMovieRequestDTO): Promise<Movie[]> {
-    const query = await this.buildFilter(dto);
+    const query = this.buildFilter(dto);
     const [data] = await query.getManyAndCount();
     return data;
   }

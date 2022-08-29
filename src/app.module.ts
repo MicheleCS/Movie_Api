@@ -23,11 +23,5 @@ const databaseOptions = {
     UserRoleModule,
     MovieModule,
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-  ],
 })
 export class AppModule {}

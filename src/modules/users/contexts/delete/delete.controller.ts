@@ -12,6 +12,9 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { DeleteUserService } from './delete.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
+import { RolesGuard } from 'modules/auth/guards/role.guards';
 
 @ApiTags('users')
 @Controller('users')
@@ -19,8 +22,9 @@ export class DeleteUserController {
   constructor(private readonly deleteUserService: DeleteUserService) {}
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @Roles(roles.BASIC)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
     new ValidationPipe({
