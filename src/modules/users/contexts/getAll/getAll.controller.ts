@@ -18,7 +18,7 @@ export class GetAllUserController {
   constructor(private readonly getAllUserService: GetAllUserService) {}
 
   @Get()
-  @Roles(roles.BASIC)
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(

@@ -5,41 +5,23 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Assessment } from './assessment.entity';
+import { Movie } from './movie.entity';
+import { User } from './user.entity';
 
-@Entity('movies')
-export class Movie {
+@Entity('assessments')
+export class Assessment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @Column()
-  movie: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Column()
-  actor: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Column()
-  description: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Column()
-  director: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Column()
-  gender: string;
+  @Column({ nullable: false })
+  assessment: number;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt: Date;
@@ -50,6 +32,15 @@ export class Movie {
   @DeleteDateColumn({ name: 'deleted_at' })
   public deletedAt: Date;
 
-  @OneToMany(() => Assessment, (assessment) => assessment.movie)
-  public assessments?: Assessment[];
+  @ManyToOne(() => User, (user) => user.assessments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'user_id' })
+  public user: User;
+
+  @ManyToOne(() => Movie, (movie) => movie.assessments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'movie_id' })
+  public movie?: Movie;
 }

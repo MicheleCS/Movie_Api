@@ -3,7 +3,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Param,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -13,14 +12,16 @@ import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { GetOneMovieService } from './getOne.service';
+import { GetAllAssessmentService } from './getAll.service';
 
-@Controller('movies')
-export class GetOneMovieController {
-  constructor(private readonly getOneMovieService: GetOneMovieService) {}
+@Controller('assessments')
+export class GetAllAssessmentController {
+  constructor(
+    private readonly getAllAssessmentService: GetAllAssessmentService,
+  ) {}
 
   @ApiBearerAuth()
-  @Get(':id')
+  @Get()
   @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
@@ -29,7 +30,7 @@ export class GetOneMovieController {
       transform: true,
     }),
   )
-  async findOne(@Param('id') id: string) {
-    return this.getOneMovieService.findOne(id);
+  async findAll() {
+    return this.getAllAssessmentService.findAll();
   }
 }

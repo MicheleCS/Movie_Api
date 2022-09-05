@@ -22,7 +22,7 @@ export class UpdateUserController {
 
   @ApiBearerAuth()
   @Patch()
-  @Roles(roles.BASIC)
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(

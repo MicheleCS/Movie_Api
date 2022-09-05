@@ -1,9 +1,9 @@
 import {
+  Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
-  Param,
+  Patch,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -13,23 +13,26 @@ import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { GetOneMovieService } from './getOne.service';
+import { UpdateAssessmentDTO } from 'shared/dto/assessment/updateAssessment.dto';
+import { UpdateAssessmentService } from './update.service';
 
-@Controller('movies')
-export class GetOneMovieController {
-  constructor(private readonly getOneMovieService: GetOneMovieService) {}
+@Controller('assessments')
+export class UpdateAssessmentController {
+  constructor(
+    private readonly updateAssessmentService: UpdateAssessmentService,
+  ) {}
 
   @ApiBearerAuth()
-  @Get(':id')
+  @Patch()
   @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(
     new ValidationPipe({
       transform: true,
     }),
   )
-  async findOne(@Param('id') id: string) {
-    return this.getOneMovieService.findOne(id);
+  async update(@Body() updateAssessmentDTO: UpdateAssessmentDTO) {
+    await this.updateAssessmentService.update(updateAssessmentDTO);
   }
 }

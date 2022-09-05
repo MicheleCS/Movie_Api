@@ -7,6 +7,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
@@ -17,8 +18,9 @@ import { GetAllRoleService } from './getAll.service';
 export class GetAllRoleController {
   constructor(private readonly getAllRoleService: GetAllRoleService) {}
 
+  @ApiBearerAuth()
   @Get()
-  @Roles(roles.BASIC)
+  @Roles(roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(

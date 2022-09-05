@@ -13,11 +13,13 @@ import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { GetOneMovieService } from './getOne.service';
+import { GetOneAssessmentService } from './getOne.service';
 
-@Controller('movies')
-export class GetOneMovieController {
-  constructor(private readonly getOneMovieService: GetOneMovieService) {}
+@Controller('assessments')
+export class GetOneAssessmentController {
+  constructor(
+    private readonly getOneAssessmentService: GetOneAssessmentService,
+  ) {}
 
   @ApiBearerAuth()
   @Get(':id')
@@ -30,6 +32,6 @@ export class GetOneMovieController {
     }),
   )
   async findOne(@Param('id') id: string) {
-    return this.getOneMovieService.findOne(id);
+    return this.getOneAssessmentService.findOne(id);
   }
 }

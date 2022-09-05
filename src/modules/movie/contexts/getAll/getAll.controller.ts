@@ -23,7 +23,7 @@ export class GetAllMovieController {
 
   @ApiBearerAuth()
   @Get()
-  @Roles(roles.BASIC)
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(
