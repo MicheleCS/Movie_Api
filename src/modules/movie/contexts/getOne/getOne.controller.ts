@@ -17,11 +17,11 @@ import { GetOneMovieService } from './getOne.service';
 
 @Controller('movies')
 export class GetOneMovieController {
-  constructor(private readonly GetOneMovieService: GetOneMovieService) {}
+  constructor(private readonly getOneMovieService: GetOneMovieService) {}
 
   @ApiBearerAuth()
   @Get(':id')
-  @Roles(roles.BASIC)
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(
@@ -30,6 +30,6 @@ export class GetOneMovieController {
     }),
   )
   async findOne(@Param('id') id: string) {
-    return this.GetOneMovieService.findOne(id);
+    return this.getOneMovieService.findOne(id);
   }
 }

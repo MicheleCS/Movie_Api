@@ -1,6 +1,7 @@
 import { getDatabaseConfigConnection } from '@config/env/connection';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AssessmentModule } from 'modules/assessment/assessment.module';
 import { AuthModule } from 'modules/auth/auth.module';
 import { MovieModule } from 'modules/movie/movie.module';
 import { RoleModule } from 'modules/role/role.module';
@@ -20,6 +21,7 @@ const databaseOptions = {
     RoleModule,
     UserRoleModule,
     MovieModule,
+    AssessmentModule,
   ],
 })
 export class AppModule {}

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
-import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { DeleteUserRoleService } from './delete.service';
 
 @ApiTags('user-roles')

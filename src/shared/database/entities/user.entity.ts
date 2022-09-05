@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Assessment } from './assessment.entity';
 import { UserRole } from './userRole.entity';
 
 @Entity('users')
@@ -52,4 +53,7 @@ export class User {
 
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   public userRoles?: UserRole[];
+
+  @OneToMany(() => Assessment, (assessment) => assessment.user)
+  public assessments?: Assessment[];
 }

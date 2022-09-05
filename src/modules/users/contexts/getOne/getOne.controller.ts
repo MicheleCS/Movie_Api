@@ -21,7 +21,7 @@ export class GetOneUserController {
 
   @ApiBearerAuth()
   @Get(':id')
-  @Roles(roles.BASIC)
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.OK)
   @UsePipes(

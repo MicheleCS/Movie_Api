@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Assessment } from './assessment.entity';
 
 @Entity('movies')
 export class Movie {
@@ -47,4 +49,7 @@ export class Movie {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   public deletedAt: Date;
+
+  @OneToMany(() => Assessment, (assessment) => assessment.movie)
+  public assessments?: Assessment[];
 }
