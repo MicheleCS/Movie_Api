@@ -1,6 +1,6 @@
 import {
   Controller,
-  Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -8,29 +8,28 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
 import { RolesGuard } from 'modules/auth/guards/role.guards';
 import { Roles } from 'modules/auth/guards/roles.decorator';
 import { roles } from 'shared/constants/roles';
-import { DeleteUserRoleService } from './delete.service';
+import { GetAssessmentService } from './getAssessment.service';
 
-@ApiTags('user-roles')
-@Controller('user-roles')
-export class DeleteUserRoleController {
-  constructor(private readonly deleteUserRoleService: DeleteUserRoleService) {}
+@Controller('movies')
+export class GetAssessmentController {
+  constructor(private readonly getAssessmentService: GetAssessmentService) {}
 
   @ApiBearerAuth()
-  @Delete(':id')
-  @Roles(roles.ADMIN)
+  @Get('/assessments/:id')
+  @Roles(roles.BASIC, roles.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.CREATED)
   @UsePipes(
     new ValidationPipe({
       transform: true,
     }),
   )
-  async remove(@Param('id') id: string) {
-    return this.deleteUserRoleService.remove(id);
+  async findAssessment(@Param('id') id: string) {
+    return this.getAssessmentService.evaluate(id);
   }
 }

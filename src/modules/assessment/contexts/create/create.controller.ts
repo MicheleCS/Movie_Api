@@ -11,6 +11,8 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { instanceToInstance } from 'class-transformer';
 import { JwtAuthGuard } from 'modules/auth/guards/jwt-auth.guards';
+import { Roles } from 'modules/auth/guards/roles.decorator';
+import { roles } from 'shared/constants/roles';
 import { CreateAssessmentRequestDTO } from 'shared/dto/assessment/createAssessmentRequest.dto';
 import { CreateAssessmentService } from './create.service';
 
@@ -24,6 +26,7 @@ export class CreateAssessmentController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post()
+  @Roles(roles.BASIC, roles.ADMIN)
   @HttpCode(HttpStatus.CREATED)
   @UsePipes(
     new ValidationPipe({
