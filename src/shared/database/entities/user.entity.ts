@@ -1,25 +1,59 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty } from 'class-validator';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Assessment } from './assessment.entity';
+import { UserRole } from './userRole.entity';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ nullable: false })
   name: string;
 
-  @Column()
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ nullable: false })
   email: string;
 
-  @Column()
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ nullable: false })
   password: string;
-  
-  @Column()
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ nullable: false })
   cpf: string;
 
+  @ApiProperty()
+  @IsBoolean()
   @Column()
   acctive: boolean;
 
-  @Column('uuid')
-  role_id: string;
+  @CreateDateColumn({ name: 'created_at' })
+  public createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  public updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  public deletedAt: Date;
+
+  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  public userRoles?: UserRole[];
+
+  @OneToMany(() => Assessment, (assessment) => assessment.user)
+  public assessments?: Assessment[];
 }
